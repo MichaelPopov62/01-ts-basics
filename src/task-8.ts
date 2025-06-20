@@ -9,22 +9,23 @@
 
 import axios from "axios"; //інсталюю бібліотеку "axios"
 
-//описую інтерфейс для об'єкта поста,структура відповіді з заданими полями
+//описую інтерфейс для типизаціі об'єкта поста,структура відповіді з заданими полями
 interface Post {
-  id: number;
-  title: string;
-  body: string;
+  id: number; // Унікальний ідентифікатор поста (число).
+  title: string; // Заголовок поста (рядок).
+  body: string; // Тіло поста (рядок).
 }
-//типизую функцію щобвказати, що API повертає масив постів.
-async function fetchPosts(userId: number): Promise<Post[]> {
+/*типизую запит axios.get за допомогою джененика <Post[]>. Що вказує, що API повертає масив постів типу Post, функція fetchPosts типізована як Promise<Post[]> що означає, 
+ що вона повертає проміс із масивом постів.*/
+
+async function fetchPosts(): Promise<Post[]> {
   const response = await axios.get<Post[]>(
-    "https://jsonplaceholder.typicode.com/posts",
-    { params: { userId } }
+    "https://jsonplaceholder.typicode.com/posts"
   );
   return response.data;
 }
-// викликаю функцію fetchPosts з ID.Додав логічний оператора АБО . Якщо в лівому операнді нічого немає( наприклад нема title або undefined,null,порожній рядок "", false, 0, NaN) тоді повертається правий операнд.Якщо лівий операнд true  тоді повертається значення
+// викликаю функцію fetchPosts для отримання постів.
 
-fetchPosts(1).then((posts) => {
-  console.log(posts[0].title || " нет доступних повідомлень");
+fetchPosts().then((posts) => {
+  console.log(posts[0].title); //повідомлення ,що функція успішно виконується, title першого поста виводиться в консоль.
 });
