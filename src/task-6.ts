@@ -9,15 +9,13 @@ function getFirstElement<T>(arr: T[]): T {
   return arr[0];
 }
 
+// Приклади коректних викликів функції:
 const firstNumber = getFirstElement<number>([1, 2, 3]); // 1
 const firstString = getFirstElement<string>(["a", "b", "c"]); // "a"
 const firstBoolean = getFirstElement<boolean>([true, false, true]); //
 
-// Некоректний виклик: масив зі змішаними типами
-// / Якщо масив містить елементи різних типів, TypeScript не видасть помилку,
-// якщо явно вказати об'єднання типів.
-// Це не є порушенням правил TypeScript, але вказує на те, що типи були задані некоректно
-// (з точки зору бажаної логіки, де змішані типи не допускаються).
+/* Приклад роботи з масивом змішаних типів:
+ Якщо масив містить елементи різних типів, я явно вказую об'єднання типів.*/
 
 const mixedTypeArray = getFirstElement<number | string | boolean>([
   1,
